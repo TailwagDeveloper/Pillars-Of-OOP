@@ -8,13 +8,13 @@ public class Shape : MonoBehaviour
     public GameObject[] objects = new GameObject[4];
     //the mat variable will be assignable in the inspector for the Shape class and any child classes that derive from Shape.
     [SerializeField] private static Material mat;
-    public static Material Mat
+    public static Material Mat //ENCAPSULATION
     {
         get => mat;
         set => mat = value;
     }
     private float maxVelocity = 2f;
-    protected float MaxVelocity
+    protected float MaxVelocity //ENCAPSULATION
     {
         get => maxVelocity;
     }
@@ -25,7 +25,7 @@ public class Shape : MonoBehaviour
     protected Color currentColor;
     protected string message;
     // A virtual property with a set accessor can be overriden in child classes
-    protected string Message
+    protected string Message //ENCAPSULATION
     {
         set => message = value;
     }
@@ -35,12 +35,20 @@ public class Shape : MonoBehaviour
     additional functionality or removing the functionality of the parent class. */
     protected virtual void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        ren = GetComponent<Renderer>();
+        rb = GetRigidBody();
+        ren = GetRenderer();
         currentColor = ren.material.color;
         currentObject = RandomObjectToOrbit();
     }
-    protected virtual void ChangeColor(Color color1, Color color2)
+    protected Rigidbody GetRigidBody() //ABSTRACTION
+    {
+        return GetComponent<Rigidbody>();
+    }
+    protected Renderer GetRenderer() //ABSTRACTION
+    {
+        return GetComponent<Renderer>();
+    }
+    protected virtual void ChangeColor(Color color1, Color color2) //ABSTRACTION
     {
         ren.material.color = currentColor == color1 ? 
         Color.Lerp(currentColor, color2, Mathf.PingPong(Time.time, 1)) : 
@@ -50,12 +58,12 @@ public class Shape : MonoBehaviour
     /* The following PillarToOrbit method encapsulates int index, 
     preventing the index variable from being modified outside of 
     the scope of the ObjectToOrbit method */
-    protected GameObject RandomObjectToOrbit()
+    protected GameObject RandomObjectToOrbit() //ABSTRACTION
     {
         int index = Random.Range(0, objects.Length);
         return objects[index];
     }
-    protected Vector3 RandomAxis()
+    protected Vector3 RandomAxis() //ABSTRACTION
     {
         int index = Random.Range(0, 6);
         axis = index switch
@@ -107,11 +115,11 @@ public class Shape : MonoBehaviour
     }
     /* The two following SpawnObject methods exemplify method overloading, a feature of polymorphism */
     
-    public void ToggleGravity()
+    public void ToggleGravity() //ABSTRACTION
     {
         rb.useGravity = !rb.useGravity;
     }
-    protected void MoveShape(Vector3 direction, float speed)
+    protected void MoveShape(Vector3 direction, float speed) //ABSTRACTION
     {
         rb.AddForce(direction * speed);
     }
@@ -140,7 +148,7 @@ public class Shape : MonoBehaviour
             Invoke("ClearText", 3f);
         }
     }
-    private void ClearText()
+    private void ClearText() //ABSTRACTION
     {
         shapeText.text = "Clicking a shape also toggles gravity!";
     }

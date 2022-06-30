@@ -2,28 +2,28 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
-public class Satellite : Shape
+public class Satellite : Shape //INHERITANCE
 {
     private float xTimer = 5;
     private float zTimer = 5;
-    protected override void Start()
+    protected override void Start() //POLYMORPHISM
     {
         ren = GetComponent<Renderer>();
         rb = GetComponent<Rigidbody>();
         currentObject = gameObject.transform.parent.gameObject;
         shapeText = currentObject.GetComponent<Sphere>().shapeText;
-        CreateMaterial();
+        CreateMaterial(); //ABSTRACTION
     }
-    protected override void FixedUpdate()
+    protected override void FixedUpdate() //POLYMORPHISM
     {
         float distanceFromParent = Vector3.Distance(transform.position, currentObject.transform.position);
         if(distanceFromParent > 5f && distanceFromParent > 1f && !IsInvoking("MoveToParent"))
         {
             StartCoroutine("MoveToParent");
         }
-        base.FixedUpdate();
+        base.FixedUpdate(); //ABSTRACTION
     }
-    private IEnumerator MoveToParent()
+    private IEnumerator MoveToParent() //ABSTRACTION
     {
         while(Vector3.Distance(transform.position, currentObject.transform.position) > 1f)
         {
@@ -31,7 +31,7 @@ public class Satellite : Shape
             yield return null;
         }
     }
-    static void CreateMaterial()
+    static void CreateMaterial() //ABSTRACTION
     {
         if (!Mat)
         {
@@ -50,9 +50,9 @@ public class Satellite : Shape
             
         }
     }
-    public override void OnMouseDown()
+    public override void OnMouseDown() //POLYMORPHISM
     {
-        ToggleGravity();
-        base.OnMouseDown();
+        ToggleGravity(); //ABSTRACTION
+        base.OnMouseDown(); //ABSTRACTION
     }
 }

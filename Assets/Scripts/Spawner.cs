@@ -7,7 +7,7 @@ public class Spawner : MonoBehaviour
     {
         instance = this;
     }
-    public void SpawnObject(GameObject objectToSpawn)
+    public void SpawnObject(GameObject objectToSpawn) //POLYMORPHISM; The SpawnObject methods are an example of method overloading
     {
         objectToSpawn = Instantiate(objectToSpawn, default, Quaternion.identity);
     }
