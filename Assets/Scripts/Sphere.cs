@@ -1,6 +1,4 @@
-using TMPro;
 using UnityEngine;
-using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Sphere : Shape //The Sphere (child) class derives from the Shape (parent) class
@@ -12,10 +10,6 @@ public class Sphere : Shape //The Sphere (child) class derives from the Shape (p
     [SerializeField]
     private GameObject moon;
     private Vector3 moonOffset;
-    protected override TextMeshProUGUI Message
-    {
-        set => message.text = "This is a child class message. I'm a sphere.";
-    }
     protected override void Start() 
     {
         base.Start(); //base.Start(); calls the parent class functionality of the Start() method
@@ -47,5 +41,10 @@ public class Sphere : Shape //The Sphere (child) class derives from the Shape (p
                 timer = 5f;
             }
         }
+    }
+    public override void OnMouseDown()
+    {
+        ToggleGravity();
+        base.OnMouseDown();
     }
 }

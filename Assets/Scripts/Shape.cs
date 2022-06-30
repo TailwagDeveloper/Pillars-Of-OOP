@@ -1,10 +1,10 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.EventSystems;
 
 public class Shape : MonoBehaviour
 {
     protected GameObject currentObject;
+    public TextMeshProUGUI shapeText;
     public GameObject[] objects = new GameObject[4];
     //the mat variable will be assignable in the inspector for the Shape class and any child classes that derive from Shape.
     [SerializeField] private static Material mat;
@@ -23,11 +23,11 @@ public class Shape : MonoBehaviour
     protected Rigidbody rb;
     protected Renderer ren;
     protected Color currentColor;
-    protected TextMeshProUGUI message;
+    protected string message;
     // A virtual property with a set accessor can be overriden in child classes
-    protected virtual TextMeshProUGUI Message
+    protected string Message
     {
-        set => message.text = "This is the parent class message. I come in many forms.";
+        set => message = value;
     }
     /* The protected keyword is an access modifier which limits access to the method to only the parent class 
     and classes which derive from or implement the parent class. Methods of the parent class may include the 
@@ -47,7 +47,7 @@ public class Shape : MonoBehaviour
         Color.Lerp(currentColor, color1, Mathf.PingPong(Time.time, 1));
         currentColor = ren.material.color;
     }
-    /* The following PilarToOrbit method encapsulates int index, 
+    /* The following PillarToOrbit method encapsulates int index, 
     preventing the index variable from being modified outside of 
     the scope of the ObjectToOrbit method */
     protected GameObject RandomObjectToOrbit()
@@ -76,9 +76,9 @@ public class Shape : MonoBehaviour
         {
             transform.RotateAround(currentObject.transform.position, axis, 30f * Time.deltaTime);
         }
-        if(transform.position.z <= -8)
+        if(transform.position.z <= -7)
         {
-            rb.velocity = -rb.velocity;
+            rb.velocity = -rb.velocity.normalized;
         }
         if(rb?.velocity.x >= MaxVelocity)
         {
@@ -128,7 +128,20 @@ public class Shape : MonoBehaviour
         }
         else
         {
-            ren.material.color = new Color(Random.Range(0f, 1.0f), 0, Random.Range(0f, 1.0f), Random.Range(0.3f, 1.0f));
+            ren.material.color = new Color(Random.Range(0f, 1.0f), Random.Range(0f, 1.0f), Random.Range(0f, 1.0f), Random.Range(0.3f, 1.0f));
         }
+    }
+    public virtual void OnMouseDown()
+    {
+        message = "I'm the " + name + ".";
+        shapeText.text = message + "";
+        if(!IsInvoking("ClearText"))
+        {
+            Invoke("ClearText", 3f);
+        }
+    }
+    private void ClearText()
+    {
+        shapeText.text = "Clicking a shape also toggles gravity!";
     }
 }

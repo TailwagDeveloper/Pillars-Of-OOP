@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class Pillar : Shape
 {
     protected override void Start()

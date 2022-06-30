@@ -1,7 +1,4 @@
-using TMPro;
 using UnityEngine;
-using System.Collections;
-using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Cube : Shape //Cube derives from its parent class Shape
@@ -12,10 +9,6 @@ public class Cube : Shape //Cube derives from its parent class Shape
      /* The Cube implementation of the Start method overrides the Shape 
     implementation of the Start() method. Additional functionality is 
     introduced before the functionality from the Shape class*/
-    protected override TextMeshProUGUI Message
-    {
-        set => message.text = "This is a child class message. I'm a cube.";
-    }
     protected override void Start()
     {
         base.Start(); //base.Start(); calls the parent class functionality of the Start() method
@@ -28,8 +21,10 @@ public class Cube : Shape //Cube derives from its parent class Shape
         RandomObjectToOrbit();
         RandomAxis();
     }
-    public void OnMouseDown()
+    
+    public override void OnMouseDown()
     {
         ToggleGravity();
+        base.OnMouseDown();
     }
 }

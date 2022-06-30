@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+
+[RequireComponent(typeof(Rigidbody))]
 public class Satellite : Shape
 {
     private float xTimer = 5;
@@ -9,6 +11,7 @@ public class Satellite : Shape
         ren = GetComponent<Renderer>();
         rb = GetComponent<Rigidbody>();
         currentObject = gameObject.transform.parent.gameObject;
+        shapeText = currentObject.GetComponent<Sphere>().shapeText;
         CreateMaterial();
     }
     protected override void FixedUpdate()
@@ -46,5 +49,10 @@ public class Satellite : Shape
             Mat.SetInt("_ZWrite", 0);
             
         }
+    }
+    public override void OnMouseDown()
+    {
+        ToggleGravity();
+        base.OnMouseDown();
     }
 }
