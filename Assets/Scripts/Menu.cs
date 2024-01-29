@@ -17,14 +17,14 @@ public class Menu : MonoBehaviour
     private TextMeshProUGUI text2;
     public void CallStartFadeOut()
     {
-        if(!IsInvoking("StartFadeOut"))
+        if (!IsInvoking("StartFadeOut"))
         {
-            StartCoroutine("StartFadeOut");
+            StartCoroutine(nameof(StartFadeOut));
         }
     }
     private IEnumerator StartFadeOut()
     {
-        while(panel.color.a > 0.05f)
+        while (panel.color.a > 0.05f)
         {
             FadeOutImage(panel);
             FadeOutImage(button);

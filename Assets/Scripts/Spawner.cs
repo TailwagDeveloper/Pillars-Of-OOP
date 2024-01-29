@@ -7,16 +7,30 @@ public class Spawner : MonoBehaviour
     {
         instance = this;
     }
-    public void SpawnObject(GameObject objectToSpawn) //POLYMORPHISM; The SpawnObject methods are an example of method overloading
-    {
-        objectToSpawn = Instantiate(objectToSpawn, default, Quaternion.identity);
-    }
+    //POLYMORPHISM; The SpawnObject methods are an example of method overloading
+    /// <summary>
+    /// Extends the functionality of the Instantiate method by allowing the user to specify the color of the object to be spawned.
+    /// </summary>
+    /// <param name="objectToSpawn"></param>
+    /// <param name="objectPosition"></param>
+    /// <param name="objectRotation"></param>
+    /// <param name="objectColor"></param>
+    /// <returns>The object that was spawned.</returns>
     public GameObject SpawnObject(GameObject objectToSpawn, Vector3 objectPosition = default, Quaternion objectRotation = default, Color objectColor = default)
     {
         objectToSpawn = Instantiate(objectToSpawn, objectPosition, objectRotation);
         objectToSpawn.GetComponent<Renderer>().material.color = objectColor;
         return objectToSpawn;
     }
+    /// <summary>
+    /// Extends the functionality of the Instantiate method by allowing the user to specify the color of the object to be spawned and the parent object.
+    /// </summary>
+    /// <param name="objectToSpawn"></param>
+    /// <param name="parentObject"></param>
+    /// <param name="objectPosition"></param>
+    /// <param name="objectRotation"></param>
+    /// <param name="objectColor"></param>
+    /// <returns>The object that was spawned.</returns>
     public GameObject SpawnObject(GameObject objectToSpawn, GameObject parentObject, Vector3 objectPosition = default, Quaternion objectRotation = default, Color objectColor = default)
     {
         objectToSpawn = Instantiate(objectToSpawn, objectPosition, objectRotation);

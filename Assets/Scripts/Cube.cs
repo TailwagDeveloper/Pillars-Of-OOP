@@ -13,7 +13,7 @@ public class Cube : Shape //INHERITANCE; Cube derives from its parent class Shap
     {
         base.Start(); //ABSTRACTION; base.Start(); calls the parent class functionality of the Start() method
         MoveShape(Vector3.down, 3.27f); //ABSTRACTION; add a downward force ~1/3 of gravity
-        InvokeRepeating("EveryThreeSeconds", 3f, 3f); //ABSTRACTION
+        InvokeRepeating(nameof(EveryThreeSeconds), 3f, 3f); //ABSTRACTION
     }
     private void EveryThreeSeconds()
     {

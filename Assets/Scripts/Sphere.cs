@@ -27,14 +27,14 @@ public class Sphere : Shape //INHERITANCE; The Sphere (child) class derives from
     protected override void FixedUpdate() //POLYMORPHISM
     {
         base.FixedUpdate(); //ABSTRACTION
-        if(rb.velocity.x < 0.5f)
+        if (rb.velocity.x < 0.5f)
         {
             timer -= Time.deltaTime;
-            if(timer <= 0)
+            if (timer <= 0)
             {
                 RandomObjectToOrbit(); //ABSTRACTION
             }
-            if(timer <= -5)
+            if (timer <= -5)
             {
                 RandomAxis(); //ABSTRACTION
                 timer = 5f;
